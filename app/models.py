@@ -22,7 +22,7 @@ class User(UserMixin,db.Model):
     email=db.Column(db.String(),unique = True,index = True)
     password_hash=db.Column(db.String(255)) 
     blog = db.relationship('Blog', backref='user', lazy='dynamic')
-    comment = db.relationship('PitchComments', backref = 'user', lazy = 'dynamic')
+    comment = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
     upvotes = db.relationship('Upvote', backref = 'user', lazy = 'dynamic')
     downvotes = db.relationship('Downvote', backref = 'user', lazy = 'dynamic')
 
@@ -41,7 +41,7 @@ class User(UserMixin,db.Model):
         return f'Writer {self.username}'
 class Blog(db.Model):
     '''
-    properties of pitch class
+    properties of blog class
     '''
     __tablename__='blogs' 
 
@@ -51,9 +51,9 @@ class Blog(db.Model):
     category=db.Column(db.String(255))
     description=db.Column(db.String())
     date_posted=db.Column(db.DateTime,default=datetime.utcnow)
-    comments = db.relationship('PitchComments',backref='blog',lazy='dynamic')
-    upvotes = db.relationship('Upvote', backref = 'pitch', lazy = 'dynamic')
-    downvotes = db.relationship('Downvote', backref = 'pitch', lazy = 'dynamic')
+    comments = db.relationship('Comment',backref='blog',lazy='dynamic')
+    upvotes = db.relationship('Upvote', backref = 'blog', lazy = 'dynamic')
+    downvotes = db.relationship('Downvote', backref = 'blog', lazy = 'dynamic')
 
     @classmethod
     def get_blogs(cls, id):
@@ -62,3 +62,27 @@ class Blog(db.Model):
 
     def __repr__(self):
         return f'Blog {self.description}'
+
+class Comment(db.Model):
+    '''
+    model that defines the properties of comments
+    '''
+    __tablename__='comments'
+
+    id=db.Column(db.Integer,primary_key=True)
+    pitch_id=db.Column(db.Integer,db.ForeignKey("blogs.id"),nullable= False)
+    description=db.Column(db.String())
+    user_id=db.Column(db.Integer,db.ForeignKey("users.id"),nullable= False)
+    date_posted=db.Column(db.DateTime,default=datetime.utcnow)
+
+    def save_blogs(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_blogs(cls,id):
+        blogs = Comment.query.filter_by(pitch_id = id).all()
+        return blogs
+
+    def __repr__(self):
+        return f'{self.pitch_id}:{self.pitch_id}'
