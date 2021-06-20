@@ -6,22 +6,22 @@ from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Writer.query.get(int(user_id))
+    return User.query.get(int(user_id))
 
 
 
 
-class Writer(UserMixin,db.Model):
+class User(UserMixin,db.Model):
     '''
     models that defines properties of user class
     '''
-    __tablename__="writers"
+    __tablename__="users"
 
     id=db.Column(db.Integer,primary_key=True)
     username=db.Column(db.String(255))
     email=db.Column(db.String(),unique = True,index = True)
     password_hash=db.Column(db.String(255)) 
-    pitch = db.relationship('Pitch', backref='user', lazy='dynamic')
+    blog = db.relationship('Blog', backref='user', lazy='dynamic')
     comment = db.relationship('PitchComments', backref = 'user', lazy = 'dynamic')
     upvotes = db.relationship('Upvote', backref = 'user', lazy = 'dynamic')
     downvotes = db.relationship('Downvote', backref = 'user', lazy = 'dynamic')
@@ -38,4 +38,27 @@ class Writer(UserMixin,db.Model):
      
         
     def __repr__(self):
-        return f'User {self.username}'
+        return f'Writer {self.username}'
+class Blog(db.Model):
+    '''
+    properties of pitch class
+    '''
+    __tablename__='blogs' 
+
+    id=db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    title=db.Column(db.String(255))
+    category=db.Column(db.String(255))
+    description=db.Column(db.String())
+    date_posted=db.Column(db.DateTime,default=datetime.utcnow)
+    comments = db.relationship('PitchComments',backref='blog',lazy='dynamic')
+    upvotes = db.relationship('Upvote', backref = 'pitch', lazy = 'dynamic')
+    downvotes = db.relationship('Downvote', backref = 'pitch', lazy = 'dynamic')
+
+    @classmethod
+    def get_blogs(cls, id):
+        blogs = Blog.query.order_by(blog_id=id).desc().all()    
+        return blogs
+
+    def __repr__(self):
+        return f'Blog {self.description}'
