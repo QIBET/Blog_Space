@@ -23,9 +23,7 @@ class User(UserMixin,db.Model):
     password_hash=db.Column(db.String(255)) 
     blog = db.relationship('Blog', backref='user', lazy='dynamic')
     comment = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
-    upvotes = db.relationship('Upvote', backref = 'user', lazy = 'dynamic')
-    downvotes = db.relationship('Downvote', backref = 'user', lazy = 'dynamic')
-
+    
     @property
     def password(self):
         raise ArithmeticError('You cannnot read the password attribute')
@@ -52,8 +50,7 @@ class Blog(db.Model):
     description=db.Column(db.String())
     date_posted=db.Column(db.DateTime,default=datetime.utcnow)
     comments = db.relationship('Comment',backref='blog',lazy='dynamic')
-    upvotes = db.relationship('Upvote', backref = 'blog', lazy = 'dynamic')
-    downvotes = db.relationship('Downvote', backref = 'blog', lazy = 'dynamic')
+    
 
     @classmethod
     def get_blogs(cls, id):
