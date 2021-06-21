@@ -15,7 +15,7 @@ def index():
     View root page function that returns the index page and its data
     '''
     blogQuote = get_blogQuotes()
-    title = 'Home -welcome to My Blogs'
+    title = 'Home -Blog~Space'
     
     return render_template('index.html',title = title, blogQuote=blogQuote)
 
@@ -114,9 +114,9 @@ def view(id):
     blog_comments = Comment.query.filter_by(blog_id=id).all()
     comment_form = CommentForm()
     if comment_form.validate_on_submit():
-        new_comment = Comment(blog_id=id, comment=comment_form.comment.data, user=current_user)
+        new_comment = Comment(blog_id=id, comment=comment_form.description.data, user=current_user)
         new_comment.save_comment()
-    return render_template('view.html', blog=blog, blog_comments=blog_comments, comment_form=comment_form)
+    return render_template('comments.html', blog=blog, blog_comments=blog_comments, comment_form=comment_form)
 
 @main.route('/delete/<int:id>', methods=['GET', 'POST'])
 @login_required

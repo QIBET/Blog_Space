@@ -18,6 +18,7 @@ photos = UploadSet('photos', IMAGES)
 
 
 
+
 def create_app(config_name):
 
     app = Flask(__name__)
@@ -38,7 +39,7 @@ def create_app(config_name):
     simple.init_app(app)
     
 
-    # configure UploadSet
+     # configure UploadSet
     configure_uploads(app,photos)
 
 

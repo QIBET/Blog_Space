@@ -18,10 +18,10 @@
                 </div>
                 <div class="panel-footer">
                     <p class="date text-muted">Posted on ~ {{blog.date.strftime('%Y-%m-%d')}}</p>
-                    <a href="{{url_for('main.view', id=blog.id)}}"><i class="fas fa-comment fa-fw"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a type="button" class="btn btn-info btn-sm" href="{{url_for('main.view', id=blog.id)}}">COMMENT</a>
                     {% if blog.user == current_user%}
-                    <a href="{{url_for('main.delete', id=blog.id)}}"><i class="fas fa-trash-alt fa-fw"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="{{url_for('main.update_blog', id=blog.id)}}"><i class="fas fa-marker fa-fw"></i></a>
+                    <a type="button" class="btn btn-danger btn-sm" href="{{url_for('main.delete', id=blog.id)}}">DELETE</a>
+                    <a type="button" class="btn btn-success btn-sm" href="{{url_for('main.update_blog', id=blog.id)}}">UPDATE</a>
                     {% endif %}
                 </div>
             </div>
@@ -30,27 +30,3 @@
     </div>
 </div>
 {%endblock%}
-
-
-
-{% macro displayComment(comments) %}
-<ul>
-
-			{% if comments %}
-			{% for comment in comments %}
-				<div class="row text-center">
-						<a><p style="color: brown">{{ comment.description }}</p></a>
-						<small> posted by {{comment.user.username}}</small>
-				</div>
-			{% endfor %}
-			{% else %}
-
-			<h3>This post does  not does not have any comments yet !</h3>
-			{%endif%}
-
-	</ul>
-	
-			
-
-
-{% endmacro %}

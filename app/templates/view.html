@@ -22,17 +22,10 @@
             <p class="date text-muted">Posted on ~ {{blog.date.strftime('%Y-%m-%d')}}</p>
         </div>
         <div class="col-md-4">
-            <h1>Add a comment</h1>
-            {{wtf.quick_form(comment_form)}}
+            
         </div>
         <div class="col-md-4">
-            {%for comment in blog_comments%}
-            <p>{{comment.user.username}}</p>
-            <p>{{comment.comment}}</p>
-            <p>{{comment.date.strftime("%Y-%m-%d")}}</p>
             
-            <a href="{{url_for('main.delete_comment', comment_id=comment.id)}}"><button >Delete Coment</button></a>
-            {%endfor%}
             
         </div>
         

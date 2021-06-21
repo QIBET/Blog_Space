@@ -2,7 +2,7 @@
 
 {% import 'bootstrap/wtf.html' as wtf %}
 {% extends 'bootstrap/base.html' %}
-{% import 'macros.html' as macro %}
+
 
 {% block content %}
 
@@ -10,28 +10,21 @@
         
                 
         <div class="row">
-                        <div class="card">
-                                        <div class="card-body text-center">
-                                        <h4><a>{{blog.title}}</a></h4>
-                                        <h5 class="card-text text-center">{{blog.description}}.</h5>
-                                        <h5 class="card-text text-center">{{blog.date_posted}}.</h5>
-                                        </div>
-                        </div>
-
-
-                        <div class="container">
-                                        <div class="row">
-                                                <div class="jumbotron">
-                                                        {{wtf.quick_form(form)}}
-                                                </div>
-                                        </div>
-                                </div>
-                                
         <hr>
                 <div class="container">
                         <div class="col-md-12">
-                                <h4 style="color: brown; text-align: center;text-underline-position: below">Comments</h4>
-                                {{ macro.displayComment(comment) }}
+                                <h2 style="color: brown; text-align: center;text-underline-position: below">Comments</h4>
+                                <h1>Add a comment</h1>
+                                {{wtf.quick_form(comment_form)}}
+
+                                {%for comment in blog_comments%}
+                                <p>Blog Title: {{comment.title_blog}}</p>
+                                <p><b>Blogger: </b> {{comment.user.username}}</p>
+                                <p><b>Comment: </b>{{comment.comment}}</p>
+                                <p><b>Commented on: </b>{{comment.date.strftime("%Y-%m-%d")}}</p>
+                                
+                                <a type="button" class="btn btn-danger btn-sm" href="{{url_for('main.delete_comment', comment_id=comment.id)}}">DELETE</a>
+                                {%endfor%}
 
                         </div>
                         

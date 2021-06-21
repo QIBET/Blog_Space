@@ -6,12 +6,13 @@ from wtforms.validators import Email, EqualTo, Required
 
 
 class BlogForm(FlaskForm):
-    title = StringField('Blog Title', validators= [Required()])
+    title_blog = StringField('Blog Title', validators= [Required()])
     description = TextAreaField('Blog Body', validators = [Required()])
     submit = SubmitField('Post')
 
 
 class CommentForm(FlaskForm):
+    title_blog = StringField('Blog Title', validators= [Required()])
     description = TextAreaField('Write a comment', validators=[Required()])
     submit = SubmitField()
 

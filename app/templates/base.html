@@ -1,18 +1,13 @@
-
-{%block styles %}
-<!--Importing the simple mde css and js files  -->
-{{ simplemde.css}}
-{{ simplemde.js }}
-
-{% endblock %}
-
 {% extends 'bootstrap/base.html' %}
 {% block styles %}
 {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lobster&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
+<!--Importing the simple mde css and js files  -->
+{{ simplemde.css}}
+{{ simplemde.js }}
 <!-- </head> -->
 {% endblock %}
 
