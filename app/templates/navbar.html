@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-inverse navbar-dark default-color">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -7,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand"><Strong><span style="font-family: 'Lobster', cursive; font-size: 30px;">My Blog~Space</Strong></a></span>
+            <a href="/" class="navbar-brand"><Strong><span style="font-family: 'Lobster', cursive; font-size: 30px;">My Blogs</Strong></a></span>
 
         </div>
         <div class="navbar-collapse collapse">
@@ -16,10 +17,10 @@
                     <a href="{{url_for('main.index')}}" class="nav-link"><span style="font-family: 'Lobster', cursive;">Home</span> </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url_for('main.blogs')}}" class="nav-link"><span style="font-family: 'Lobster', cursive;">Blogs</span></a>
+                    <a href="{{url_for('main.theblog')}}" class="nav-link"><span style="font-family: 'Lobster', cursive;">Blogs</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="/blogs/new/" class="nav-link"><span style="font-family: 'Lobster', cursive;">Add blog</span></a>
+                    <a href="{{url_for('main.blogs')}}" class="nav-link"><span style="font-family: 'Lobster', cursive;">Add blog</span></a>
                 </li>
 
 
@@ -31,7 +32,7 @@
                         aria-haspopup="true" aria-expanded="false">{{current_user.username| capitalize}} <span
                             class="caret"></span></a>
                     <ul class="dropdown-menu ">
-                        <li><a href="/">🤵 Profile</a></li>
+                        <li><a href="{{url_for('main.profile',uname=current_user.username)}}">🤵 Profile</a></li>
                         <hr>
 
 
