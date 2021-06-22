@@ -8,7 +8,7 @@ Is a web application that allows one to create a blog, comment on a blog and vie
  * Allows a user to register and blog as a writer.
 
  # Screenshot of application landing page
-![](images/blogspace.png?raw=true "Blog~Space")
+![](app/static/images/blogspace.png "Blog~Space")
 
 # SetUp / Installation Requirements
 ### You need to have the following
